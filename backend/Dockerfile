@@ -8,7 +8,6 @@ RUN pip install --default-timeout=300 --no-cache-dir -r requirements.txt
 
 COPY app ./app
 
-COPY portfolio.db .
 
 EXPOSE 8000
 
