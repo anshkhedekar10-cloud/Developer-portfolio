@@ -14,7 +14,7 @@ import type {
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [, setProfile] = useState<Profile | null>(null);
 
 
 useEffect(() => {
@@ -40,10 +40,17 @@ useEffect(() => {
   return (
     <main>
 
-      {/* Navbar */}
-      <nav className="navbar">
+    {/* Navbar */}
+<nav className="navbar">
 
-      <div className="nav-links">
+  <div className="navbar-container">
+
+    <a href="#home" className="navbar-logo">
+      ANSH<span>.</span>
+    </a>
+
+    <div className="nav-links">
+
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -52,51 +59,76 @@ useEffect(() => {
       <a href="#education">Education</a>
       <a href="#certifications">Certificate</a>
       <a href="#contact">Contact</a>
-</div>
 
-      </nav>
+    </div>
+
+  </div>
+
+</nav>
 
 
       {/* Hero Section */}
-      <section className="hero" id="home">
+      <section className="hero-section" id="home">
+  <div className="hero-content">
 
-        <div className="hero-content">
+    <span className="hero-greeting">
+      👋 WELCOME TO MY PORTFOLIO
+    </span>
 
-          <h1>
-           Hi, I'm {profile?.name || "Ansh"}
-          </h1>
+    <h1>
+      Hi, I'm <span>Ansh</span>
+    </h1>
 
-          <h2>
-            {profile?.role || "Software Engineer"}
-          </h2>
+    <h2>
+      Software Engineer
+    </h2>
 
-          <p>
-            {profile?.description || 
-            "I build scalable web applications, APIs, and cloud-ready software solutions."}
-          </p>
+    <p className="hero-description">
+      I build scalable web applications, REST APIs, and
+      cloud-ready software solutions.
+    </p>
 
-          <div className="buttons">
+    <p className="hero-subtext">
+      Passionate about software development, DevOps,
+      automation, and building reliable systems.
+    </p>
 
-            <a
-              href="#projects"
-              className="btn btn-primary"
-            >
-              View My Projects
-            </a>
+    <div className="hero-buttons">
 
-            <a
-              href="/resume.pdf"
-              className="btn btn-secondary"
-            >
-              Download Resume
-            </a>
+      <a
+        href="#projects"
+        className="hero-primary-btn"
+      >
+        View My Projects
+        <span>→</span>
+      </a>
 
-          </div>
+      <a
+        href="/resume.pdf"
+        className="hero-secondary-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Download Resume
+        <span>↓</span>
+      </a>
 
-        </div>
+    </div>
 
-      </section>
+    <div className="hero-tech">
 
+      <span>React</span>
+      <span>TypeScript</span>
+      <span>FastAPI</span>
+      <span>Docker</span>
+      <span>GitHub Actions</span>
+
+    
+
+    </div>
+
+  </div>
+</section>
 
       {/* About Section */}
       
@@ -413,100 +445,170 @@ useEffect(() => {
 </section>
 {/* Contact Section */}
 <section className="section contact-section" id="contact">
-
   <div className="section-content">
 
-    <span className="section-label">
+    <span className="section-label contact-label">
       CONTACT
     </span>
 
-    <h2>
-      Let's Work Together
-    </h2>
+    <h2>Let's Work Together</h2>
 
-    <p>
-      I'm always interested in discussing new opportunities,
-      projects, and ideas. Feel free to get in touch.
+    <div className="contact-divider">
+      <span></span>
+      <span></span>
+    </div>
+
+    <p className="contact-intro">
+      I'm always interested in discussing new opportunities, projects, and ideas.
+      <br />
+      Feel free to get in touch.
     </p>
 
-<form
-  className="contact-form"
-  onSubmit={async (e) => {
-    e.preventDefault();
+    <form
+      className="contact-form"
+      onSubmit={async (e) => {
+        e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
 
-    const contact: Contact = {
-      name: String(formData.get("name") || ""),
-      email: String(formData.get("email") || ""),
-      message: String(formData.get("message") || ""),
-    };
+        const contact: Contact = {
+          name: String(formData.get("name") || ""),
+          email: String(formData.get("email") || ""),
+          message: String(formData.get("message") || ""),
+        };
 
-    try {
-      await sendContact(contact);
+        try {
+          await sendContact(contact);
 
-      alert("Message sent successfully!");
-      form.reset();
-    } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Something went wrong. Please try again.");
-    }
-  }}
->
-  <input
-    type="text"
-    name="name"
-    placeholder="Your Name"
-    required
-  />
+          alert("Message sent successfully!");
+          form.reset();
+        } catch (error) {
+          console.error("Error sending message:", error);
+          alert("Something went wrong. Please try again.");
+        }
+      }}
+    >
+      <div className="contact-form-row">
 
-  <input
-    type="email"
-    name="email"
-    placeholder="Your Email"
-    required
-  />
+        <div className="input-group">
+          <span className="input-icon">♙</span>
 
-  <textarea
-    name="message"
-    placeholder="Your Message"
-    rows={6}
-    required
-  />
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+          />
+        </div>
 
-  <button type="submit">
-    Send Message
-  </button>
-</form>
+        <div className="input-group">
+          <span className="input-icon">✉</span>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          />
+        </div>
+
+      </div>
+
+      <div className="input-group message-group">
+        <span className="input-icon message-icon">☰</span>
+
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          rows={7}
+          required
+        />
+      </div>
+
+      <div className="contact-submit-row">
+
+        <button
+          type="submit"
+          className="contact-submit"
+        >
+          <span>➤</span>
+          Send Message
+        </button>
+
+        <div className="response-message">
+          <span className="response-icon">✓</span>
+          <span>
+            I'll get back to you as soon as possible!
+          </span>
+        </div>
+
+      </div>
+    </form>
 
     <div className="contact-links">
 
-      <a href="mailto:anshkhedekar10@gmail.com">
-        Email Me
+      <a
+        href="mailto:anshkhedekar10@gmail.com"
+        className="contact-card"
+      >
+        <div className="contact-card-icon">
+          ✉
+        </div>
+
+        <h3>Email Me</h3>
+
+        <p>Send me an email</p>
+
+        <span className="contact-arrow">
+          →
+        </span>
       </a>
 
       <a
         href="https://github.com/"
         target="_blank"
         rel="noopener noreferrer"
+        className="contact-card"
       >
-        GitHub
+        <div className="contact-card-icon github-icon">
+          ●
+        </div>
+
+        <h3>GitHub</h3>
+
+        <p>Check out my projects</p>
+
+        <span className="contact-arrow">
+          →
+        </span>
       </a>
 
       <a
         href="https://www.linkedin.com/in/ansh-khedekar-1089323b2/"
         target="_blank"
         rel="noopener noreferrer"
+        className="contact-card"
       >
-        LinkedIn
+        <div className="contact-card-icon linkedin-icon">
+          in
+        </div>
+
+        <h3>LinkedIn</h3>
+
+        <p>Connect with me</p>
+
+        <span className="contact-arrow">
+          →
+        </span>
       </a>
 
     </div>
 
   </div>
-
 </section>
+
+  
 {/* Footer */}
 <footer className="footer">
 
