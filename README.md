@@ -1,32 +1,98 @@
-# React + TypeScript + Vite
+# 🚀 Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern full-stack developer portfolio built to showcase my software engineering projects, technical skills, education, certifications, and experience.
 
-Currently, two official plugins are available:
+The project uses a React + TypeScript frontend, FastAPI backend, SQLite database, Docker, and GitHub Actions CI/CD.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🌐 Project Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This portfolio is designed as a production-style full-stack application rather than a simple static website.
 
-## Expanding the Oxlint configuration
+It provides:
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- Responsive developer portfolio UI
+- Projects dynamically loaded from the backend API
+- Contact form with database persistence
+- REST API built with FastAPI
+- SQLite database
+- Dockerized frontend and backend
+- Automated CI/CD using GitHub Actions
+- Docker image publishing through GitHub Container Registry
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+---
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
+- Axios
+- CSS
+
+### Backend
+
+- Python
+- FastAPI
+- SQLAlchemy
+- Uvicorn
+
+### Database
+
+- SQLite
+
+### DevOps
+
+- Docker
+- Docker Compose / Docker containers
+- Git
+- GitHub
+- GitHub Actions
+- GitHub Container Registry
+
+---
+
+## 🏗️ Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │      User / Browser  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ React + TypeScript   │
+                    │       Frontend       │
+                    └──────────┬───────────┘
+                               │
+                         REST API / Axios
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │      FastAPI         │
+                    │       Backend        │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │       SQLite         │
+                    │      Database        │
+                    └──────────────────────┘
+
+                         CI/CD Pipeline
+
+                    GitHub Repository
+                            │
+                            ▼
+                     GitHub Actions
+                            │
+              ┌─────────────┼─────────────┐
+              ▼             ▼             ▼
+        Frontend Build  Backend Check  Docker Build
+                                            │
+                                            ▼
+                                   GitHub Container
+                                      Registry
