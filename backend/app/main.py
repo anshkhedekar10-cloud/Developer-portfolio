@@ -7,6 +7,7 @@ from .database import engine, Base, SessionLocal
 from .models import Project
 from .models import ContactMessage
 
+
 class ProjectCreate(BaseModel):
     title: str
     description: str
@@ -17,15 +18,18 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Developer Portfolio API")
 
+
 Base.metadata.create_all(bind=engine)
 
 
+# CORS
 # CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:8080",
+        "https://developer-portfolio-xndo.onrender.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
