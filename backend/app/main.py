@@ -1,12 +1,15 @@
-from fastapi import FastAPI, Depends
+import os
+import smtplib
+
+from email.message import EmailMessage
+
+from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from .database import engine, Base, SessionLocal
-from .models import Project
-from .models import ContactMessage
-
+from .models import Project, ContactMessage
 
 class ProjectCreate(BaseModel):
     title: str
@@ -218,18 +221,73 @@ class ContactCreate(BaseModel):
 def create_contact(contact: ContactCreate):
     db = SessionLocal()
 
-    new_message = ContactMessage(
-        name=contact.name,
-        email=contact.email,
-        message=contact.message
-    )
+    try:
+        # Save message to database
+        new_message = ContactMessage(
+            name=contact.name,
+            email=contact.email,
+            message=contact.message
+        )
 
-    db.add(new_message)
-    db.commit()
-    db.refresh(new_message)
-    db.close()
+        db.add(new_message)
+        db.commit()
+        db.refresh(new_message)
 
-    return {
-        "message": "Contact message saved successfully",
-        "id": new_message.id
-    }    
+        # Get Gmail credentials from Render environment variables
+        gmail_username = os.getenv("GMAIL_USERNAME")
+        gmail_app_password = os.getenv("GMAIL_APP_PASSWORD")
+
+        if not gmail_username or not gmail_app_password:
+            raise HTTPException(
+                status_code=500,
+                detail="Email configuration is missing"
+            )
+
+        # Create email
+        email = EmailMessage()
+
+        email["Subject"] = f"New Portfolio Contact from {contact.name}"
+        email["From"] = gmail_username
+        email["To"] = gmail_username
+        email["Reply-To"] = contact.email
+
+        email.set_content(
+            f"""
+You received a new message from your developer portfolio.
+
+Name: {contact.name}
+Email: {contact.email}
+
+Message:
+{contact.message}
+
+------------------------------
+Developer Portfolio Contact Form
+"""
+        )
+
+        # Send email through Gmail SMTP
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(gmail_username, gmail_app_password)
+            smtp.send_message(email)
+
+        return {
+            "message": "Contact message saved and email sent successfully",
+            "id": new_message.id
+        }
+
+    except HTTPException:
+        db.rollback()
+        raise
+
+    except Exception as error:
+        db.rollback()
+        print("Contact email error:", error)
+
+        raise HTTPException(
+            status_code=500,
+            detail="Message was saved, but email notification failed"
+        )
+
+    finally:
+        db.close()
