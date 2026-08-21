@@ -1,7 +1,5 @@
 import os
-import smtplib
-
-from email.message import EmailMessage
+import resend
 
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
@@ -187,36 +185,6 @@ def update_project(
         "technologies": existing_project.technologies.split(",")
     }
 
-
-@app.delete("/api/projects/{project_id}")
-def delete_project(
-    project_id: int,
-    db: Session = Depends(get_db)
-):
-    project = (
-        db.query(Project)
-        .filter(Project.id == project_id)
-        .first()
-    )
-
-    if project is None:
-        return {
-            "error": "Project not found"
-        }
-
-    db.delete(project)
-    db.commit()
-
-    return {
-        "message": "Project deleted successfully",
-        "id": project_id
-    }
-
-class ContactCreate(BaseModel):
-    name: str
-    email: str
-    message: str
-
 @app.post("/api/contact")
 def create_contact(contact: ContactCreate):
     db = SessionLocal()
@@ -233,26 +201,24 @@ def create_contact(contact: ContactCreate):
         db.commit()
         db.refresh(new_message)
 
-        # Get Gmail credentials from Render environment variables
-        gmail_username = os.getenv("GMAIL_USERNAME")
-        gmail_app_password = os.getenv("GMAIL_APP_PASSWORD")
+        # Get Resend API key
+        resend_api_key = os.getenv("RESEND_API_KEY")
 
-        if not gmail_username or not gmail_app_password:
+        if not resend_api_key:
             raise HTTPException(
                 status_code=500,
-                detail="Email configuration is missing"
+                detail="Resend API key is missing"
             )
 
-        # Create email
-        email = EmailMessage()
+        resend.api_key = resend_api_key
 
-        email["Subject"] = f"New Portfolio Contact from {contact.name}"
-        email["From"] = gmail_username
-        email["To"] = gmail_username
-        email["Reply-To"] = contact.email
-
-        email.set_content(
-            f"""
+        # Send email
+        resend.Emails.send({
+            "from": "onboarding@resend.dev",
+            "to": ["anshkhedekar10@gmail.com"],
+            "subject": f"New Portfolio Contact from {contact.name}",
+            "reply_to": contact.email,
+            "text": f"""
 You received a new message from your developer portfolio.
 
 Name: {contact.name}
@@ -264,12 +230,7 @@ Message:
 ------------------------------
 Developer Portfolio Contact Form
 """
-        )
-
-        # Send email through Gmail SMTP
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(gmail_username, gmail_app_password)
-            smtp.send_message(email)
+        })
 
         return {
             "message": "Contact message saved and email sent successfully",
