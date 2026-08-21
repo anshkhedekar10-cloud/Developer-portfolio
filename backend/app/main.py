@@ -13,6 +13,11 @@ class ProjectCreate(BaseModel):
     title: str
     description: str
     technologies: str
+    
+class ContactCreate(BaseModel):
+    name: str
+    email: str
+    message: str
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
