@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://developer-portfolio-api-i460.onrender.com";
+const API_URL = "http://localhost:8000";
 
 //Project
 

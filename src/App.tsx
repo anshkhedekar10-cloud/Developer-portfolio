@@ -79,18 +79,13 @@ useEffect(() => {
       Hi, I'm <span>Ansh</span>
     </h1>
 
-    <h2>
-      Software Engineer
-    </h2>
 
     <p className="hero-description">
-      I build scalable web applications, REST APIs, and
-      cloud-ready software solutions.
+      "I'm passionate about building applications, exploring data, and creating solutions that make information easier to understand and use."
     </p>
 
     <p className="hero-subtext">
-      Passionate about software development, DevOps,
-      automation, and building reliable systems.
+     "I enjoy working with data, uncovering meaningful patterns, creating interactive dashboards, and building technology-driven solutions."
     </p>
 
     <div className="hero-buttons">
@@ -117,8 +112,10 @@ useEffect(() => {
 
     <div className="hero-tech">
 
+      <span>Microsoft Excel</span>
+      <span>Python</span>
+      <span>PowerBI</span>
       <span>React</span>
-      <span>TypeScript</span>
       <span>FastAPI</span>
       <span>Docker</span>
       <span>GitHub Actions</span>
@@ -141,191 +138,177 @@ useEffect(() => {
       </span>
 
     <h2>
-      Building Software That Solves Real Problems
+      Building Projects That Solves Real Problems
     </h2>
 
-    <p>
-      I am a software developer focused on building
-      reliable, scalable, and user-friendly applications.
-      I enjoy turning ideas into practical software solutions.
-    </p>
+<p>
+  I enjoy building reliable web applications and working with data to
+  discover patterns, understand problems, and find meaningful insights.
+</p>
 
-    <p>
-      My technical interests include full-stack development,
-      backend engineering, cloud technologies, DevOps,
-      automation, and modern software architecture.
-    </p>
+<p>
+  My technical interests include software development, data analysis,
+  data visualization, Python, SQL, Power BI, backend technologies,
+  and cloud computing.
+</p>
 
-    <p>
-      I am continuously improving my skills by building
-      real-world projects and learning technologies used
-      in professional engineering environments.
-    </p>
+<p>
+  I believe in learning by doing. I continuously improve my skills
+  through hands-on projects, exploring new technologies, and building
+  practical solutions to real-world problems.
+</p>
+
 
   </div>
 
 </section>
 {/* Skills Section */}
 <section className="section" id="skills">
-
   <div className="section-content">
 
-    <span className="section-label">
-      MY SKILLS
-    </span>
+    <span className="section-label">MY SKILLS</span>
 
-    <h2>
-      Technologies I Work With
-    </h2>
+    <h2>Technologies I Work With</h2>
 
     <p>
-      A growing technical toolkit focused on software
-      engineering, Web development, cloud, and DevOps.
+      My technical skill set includes software development,
+      data analysis, data visualization, cloud technologies,
+      and DevOps tools.
     </p>
 
     <div className="skills-grid">
 
       <div className="skill-card">
         <h3>Frontend</h3>
-        <p>•React •TypeScript •HTML •CSS</p>
+        <p>React • TypeScript • HTML • CSS</p>
       </div>
 
       <div className="skill-card">
         <h3>Backend</h3>
-        <p>•Python •FastAPI •REST APIs</p>
+        <p>Python • FastAPI • REST APIs</p>
       </div>
 
       <div className="skill-card">
-        <h3>Database</h3>
-        <p>•PostgreSQL •SQL</p>
+        <h3>Data Analytics</h3>
+        <p>Python • Pandas • NumPy • SQL • Excel</p>
       </div>
 
       <div className="skill-card">
-        <h3>DevOps</h3>
-        <p>•Docker •Git •GitHub Actions •CI/CD</p>
+        <h3>Data Visualization</h3>
+        <p>Power BI • Power Query • DAX • Matplotlib • Seaborn</p>
       </div>
 
       <div className="skill-card">
-        <h3>Cloud</h3>
-        <p>•Cloud Fundamentals •Cloud Deployment •Linux</p>
+        <h3>Databases</h3>
+        <p>SQLite • PostgreSQL • SQL</p>
+      </div>
+
+      <div className="skill-card">
+        <h3>DevOps & Cloud</h3>
+        <p>Docker • Git • GitHub Actions • Linux • CI/CD</p>
       </div>
 
       <div className="skill-card">
         <h3>Tools</h3>
-        <p>•VS Code •GitHub •Postman</p>
+        <p>VS Code • GitHub • Postman</p>
       </div>
 
     </div>
-
   </div>
-
 </section>
 {/* Projects Section */}
-<section className="section" id="projects">
 
+<section className="section projects-section" id="projects">
   <div className="section-content">
 
-    <span className="section-label">
-      MY PROJECTS
-    </span>
+```
+<span className="section-label">MY WORK</span>
 
-    <h2>
-      Projects I've Built
-    </h2>
+<h2>Projects I've Built</h2>
 
-    <p>
-      A selection of projects demonstrating my skills in
-      software development, Web Development, and DevOps.
-    </p>
+<p className="projects-intro">
+  Here are some projects where I've applied my technical
+  knowledge to build applications and explore data.
+</p>
 
-  <div className="projects-grid">
+<div className="projects-grid">
 
-  {[...projects]
-    .sort((a, b) => {
-      if (a.title === "Developer Portfolio Platform") return -1;
-      if (b.title === "Developer Portfolio Platform") return 1;
-      return a.id - b.id;
-    })
-    .map((project, index) => (
-      <div className="project-card" key={project.id}>
+  {projects.map((project) => (
+    <div className="project-card" key={project.id}>
 
-        <div className="project-number">
-          {String(index + 1).padStart(2, "0")}
-        </div>
+      <div className="project-card-content">
 
-        <h3>
-          {project.title}
-        </h3>
+        <span className="project-number">
+          PROJECT {String(project.id).padStart(2, "0")}
+        </span>
 
-        <p>
+        <h3>{project.title}</h3>
+
+        <p className="project-description">
           {project.description}
         </p>
 
-        <div className="project-tech">
-          {project.technologies.map(
-            (technology: string) => (
-              <span key={technology}>
-                {technology}
-              </span>
-            )
-          )}
+        <div className="project-technologies">
+          {project.technologies.map((technology, index) => (
+            <span key={index}>{technology}</span>
+          ))}
         </div>
 
       </div>
-    ))}
+
+      <div className="project-card-footer">
+        <span>Personal Project</span>
+        <span className="project-arrow">↗</span>
+      </div>
+
+    </div>
+  ))}
 
 </div>
+```
 
   </div>
-
 </section>
 
+
+{/* Experience Section */}
 {/* Experience Section */}
 <section className="section" id="experience">
-
   <div className="section-content">
 
     <span className="section-label">
-      EXPERIENCE
+      PROJECT EXPERIENCE
     </span>
-
-  
 
     <div className="experience-card">
 
       <div className="experience-header">
-
         <div>
-          <h3>
-            Software Developer
-          </h3>
-          </div>
-
+          <h3>Software Development & Data Analytics</h3>
+        </div>
       </div>
 
       <ul>
-
         <li>
-          Developed and maintained software applications
-          using modern development technologies.
+          Developed full-stack web applications using React,
+          TypeScript, Python, FastAPI, and SQL databases.
         </li>
 
         <li>
-          Built REST APIs and worked with databases to
-          support application functionality.
+          Created interactive Power BI dashboards to explore
+          customer data, analyze churn patterns, and identify
+          meaningful business insights.
         </li>
 
         <li>
-          Used Git and software development best practices
-          for version control and collaboration.
+          Used Python, SQL, Excel, and data visualization
+          techniques to explore datasets and understand
+          business problems.
         </li>
-
       </ul>
 
     </div>
-
   </div>
-
 </section>
 {/* Education Section */}
 <section className="section" id="education">
@@ -465,86 +448,86 @@ useEffect(() => {
     </p>
 
     <form
-      className="contact-form"
-      onSubmit={async (e) => {
-        e.preventDefault();
+  className="contact-form"
+  onSubmit={async (e) => {
+    e.preventDefault();
 
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+    console.log("CONTACT FORM SUBMITTED");
 
-        const contact: Contact = {
-          name: String(formData.get("name") || ""),
-          email: String(formData.get("email") || ""),
-          message: String(formData.get("message") || ""),
-        };
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-        try {
-          await sendContact(contact);
+    const contact: Contact = {
+      name: String(formData.get("name") || ""),
+      email: String(formData.get("email") || ""),
+      message: String(formData.get("message") || ""),
+    };
 
-          alert("Message sent successfully!");
-          form.reset();
-        } catch (error) {
-          console.error("Error sending message:", error);
-          alert("Something went wrong. Please try again.");
-        }
-      }}
+    console.log("Sending contact:", contact);
+
+    try {
+      await sendContact(contact);
+
+      console.log("CONTACT SENT SUCCESSFULLY");
+
+      alert("Message sent successfully!");
+      form.reset();
+    } catch (error) {
+      console.error("CONTACT ERROR:", error);
+
+      alert("Something went wrong. Please try again.");
+    }
+  }}
+>
+  <div className="contact-form-row">
+
+    <div className="input-group">
+      <span className="input-icon">♙</span>
+
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        required
+      />
+    </div>
+
+    <div className="input-group">
+      <span className="input-icon">✉</span>
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required
+      />
+    </div>
+
+  </div>
+
+  <div className="input-group message-group">
+    <span className="input-icon message-icon">☰</span>
+
+    <textarea
+      name="message"
+      placeholder="Your Message"
+      rows={7}
+      required
+    />
+  </div>
+
+  <div className="contact-submit-row">
+
+    <button
+      type="submit"
+      className="contact-submit"
     >
-      <div className="contact-form-row">
+      <span>➤</span>
+      Send Message
+    </button>
 
-        <div className="input-group">
-          <span className="input-icon">♙</span>
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <span className="input-icon">✉</span>
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            required
-          />
-        </div>
-
-      </div>
-
-      <div className="input-group message-group">
-        <span className="input-icon message-icon">☰</span>
-
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows={7}
-          required
-        />
-      </div>
-
-      <div className="contact-submit-row">
-
-        <button
-          type="submit"
-          className="contact-submit"
-        >
-          <span>➤</span>
-          Send Message
-        </button>
-
-        <div className="response-message">
-          <span className="response-icon">✓</span>
-          <span>
-            I'll get back to you as soon as possible!
-          </span>
-        </div>
-
-      </div>
-    </form>
+  </div>
+</form>
 
     <div className="contact-links">
 

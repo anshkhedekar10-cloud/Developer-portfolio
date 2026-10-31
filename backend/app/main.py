@@ -101,6 +101,7 @@ def get_projects(db: Session = Depends(get_db)):
     ]
 
 # Add initial projects to database
+# Add initial projects to database
 def add_initial_projects():
     db = SessionLocal()
 
@@ -108,20 +109,17 @@ def add_initial_projects():
         existing_projects = db.query(Project).count()
 
         if existing_projects == 0:
-
             projects = [
                 Project(
                     title="Developer Portfolio Platform",
                     description="A full-stack developer portfolio built with React, TypeScript, FastAPI, and SQLite.",
                     technologies="React,TypeScript,FastAPI,SQLite"
                 ),
-
                 Project(
-                    title="Medicine Delivery Wesite",
+                    title="Medicine Delivery Website",
                     description="A REST API for managing users, tasks, priorities, and deadlines.",
                     technologies="Python,FastAPI,SQLite,REST API"
                 ),
-
                 Project(
                     title="Sign Language Recognition",
                     description="A containerized application with automated testing, building, and deployment.",
@@ -130,6 +128,21 @@ def add_initial_projects():
             ]
 
             db.add_all(projects)
+            db.commit()
+
+        # Add Customer Churn Analysis project
+        new_project = db.query(Project).filter(
+            Project.title == "Customer Churn Analysis & Prediction"
+        ).first()
+
+        if not new_project:
+            db.add(
+                Project(
+                    title="Customer Churn Analysis & Prediction",
+                    description="Developed an interactive Power BI dashboard to analyze customer churn patterns, identify customer retention trends, and understand factors influencing customer attrition.",
+                    technologies="Power BI,Excel,Power Query,DAX"
+                )
+            )
             db.commit()
 
     finally:
